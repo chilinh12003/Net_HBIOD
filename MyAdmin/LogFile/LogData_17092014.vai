@@ -1,0 +1,13 @@
+﻿17/09/2014 - 11:03:25 || layfkz450rzm2u55i0z2t53r || d:\1.Visual Studio\HBIOD\MyAdmin\Admin_Report\Ad_KPI_Sub.aspx.cs || Admin_Paging1_GetTotalPage_Callback_Change || 135 || 9 || Could not find stored procedure 'Sp_RP_Sub_Search'. || Có lỗi xảy ra trong quá trình tải dữ liệu! || Chilinh
+17/09/2014 - 11:03:25 || layfkz450rzm2u55i0z2t53r || d:\1.Visual Studio\HBIOD\MyAdmin\Admin_Control\Admin_Paging.ascx.cs || ReGetTotalPage || 127 || 17 || Could not find stored procedure 'Sp_RP_Sub_Search'. || Có lỗi xảy ra trong quá trình tải dữ liệu! || Chilinh
+17/09/2014 - 11:03:25 || layfkz450rzm2u55i0z2t53r || d:\1.Visual Studio\HBIOD\MyAdmin\Admin_Control\Admin_Paging.ascx.cs || Page_Load || 104 || 21 || Could not find stored procedure 'Sp_RP_Sub_Search'. || Có lỗi xảy ra trong quá trình tải dữ liệu! || Chilinh
+-----------------------------------------------------------
+17/09/2014 - 11:03:28 || layfkz450rzm2u55i0z2t53r || d:\1.Visual Studio\HBIOD\MyAdmin\Admin_Report\Ad_KPI_MO.aspx.cs || get_mTable_RP_MO || 47 || 13 || Could not find stored procedure 'Sp_RP_MO_Select'. || Có lỗi xảy ra trong quá trình tải dữ liệu! || Chilinh
+17/09/2014 - 11:03:28 || layfkz450rzm2u55i0z2t53r || d:\1.Visual Studio\HBIOD\MyAdmin\Admin_Report\Ad_KPI_MO.aspx.cs || Page_Load || 177 || 21 || Could not find stored procedure 'Sp_RP_MO_Select'. || Có lỗi xảy ra trong quá trình tải dữ liệu! || Chilinh
+-----------------------------------------------------------
+17/09/2014 - 15:03:32 || mzmk2n45uvmbnxyz342hzl55 || d:\1.Visual Studio\HBIOD\MyAdmin\Admin_CCare\Ad_SubInfo.aspx.cs || LoadSub || 62 || 9 || Object reference not set to an instance of an object. ||  || 
+17/09/2014 - 15:03:32 || mzmk2n45uvmbnxyz342hzl55 || d:\1.Visual Studio\HBIOD\MyAdmin\Admin_CCare\Ad_SubInfo.aspx.cs || Page_Load || 36 || 17 || Object reference not set to an instance of an object. ||  || 
+-----------------------------------------------------------
+17/09/2014 - 15:05:46 || mzmk2n45uvmbnxyz342hzl55 || d:\1.Visual Studio\HBIOD\MyAdmin\Admin_CCare\Ad_SubInfo.aspx.cs || LoadSub || 62 || 9 || Object reference not set to an instance of an object. ||  || 
+17/09/2014 - 15:05:46 || mzmk2n45uvmbnxyz342hzl55 || d:\1.Visual Studio\HBIOD\MyAdmin\Admin_CCare\Ad_SubInfo.aspx.cs || Page_Load || 36 || 17 || Object reference not set to an instance of an object. ||  || 
+-----------------------------------------------------------
