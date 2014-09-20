@@ -3,7 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_Header" runat="server">
     <link href="../Calendar/dhtmlgoodies_calendar/dhtmlgoodies_calendar.css" rel="stylesheet"
         type="text/css" />
-
     <script src="../Calendar/dhtmlgoodies_calendar/dhtmlgoodies_calendar.js" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_Tools" runat="server">
