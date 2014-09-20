@@ -72,7 +72,7 @@
                 Nội dung:
             </div>
             <div class="Edit_Control_Editor">
-                <textarea id="tbx_Contents" onkeyup="return CheckMaxLength(this,479,event);" runat="server" style="float: left; height: 150px; width: 99%;"></textarea>
+                <textarea id="tbx_Contents" onkeyup="return CheckMaxLength(this,800,event);" runat="server" style="float: left; height: 150px; width: 99%;"></textarea>
                 <div id="div_Length" style="float: left; margin-top: 6px; width: 100%; font-size: 12px; font-weight: bold;">
                     Bạn đã nhập vào 0/800 ký tự
                 </div>
