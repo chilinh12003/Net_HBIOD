@@ -25,7 +25,14 @@
         <div class="Edit_Control">
             <select runat="server" id="sel_ServiceType">
             </select>
-        </div>         
+        </div>       
+          <div class="Edit_Title">
+            Hình thức trả tin
+        </div>
+        <div class="Edit_Control">
+            <select runat="server" id="sel_PushType">
+            </select>
+        </div>           
         <div class="Edit_Title">
             Tên dịch vụ
         </div>

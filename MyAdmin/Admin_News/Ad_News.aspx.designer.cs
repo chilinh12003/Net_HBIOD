@@ -58,6 +58,15 @@ namespace MyAdmin.Admin_News {
         protected global::System.Web.UI.HtmlControls.HtmlSelect sel_SearchType;
         
         /// <summary>
+        /// sel_Service control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect sel_Service;
+        
+        /// <summary>
         /// sel_Status control.
         /// </summary>
         /// <remarks>

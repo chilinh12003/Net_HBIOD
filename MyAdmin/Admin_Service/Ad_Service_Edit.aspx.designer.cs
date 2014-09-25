@@ -58,6 +58,15 @@ namespace MyAdmin.Admin_Service {
         protected global::System.Web.UI.HtmlControls.HtmlSelect sel_ServiceType;
         
         /// <summary>
+        /// sel_PushType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect sel_PushType;
+        
+        /// <summary>
         /// tbx_ServiceName control.
         /// </summary>
         /// <remarks>

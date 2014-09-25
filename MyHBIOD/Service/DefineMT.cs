@@ -15,187 +15,51 @@ namespace MyHBIOD.Service
 
         public enum MTType
         {
-            Default = 100, Invalid = 101, Help = 102, SystemError = 103, Fail = 104, GetOTPSuccess = 105, GetOTPNotReg = 106,
-            PushMT =
-                107,
-            // -----ĐĂNG KÝ DỊCH VỤ
+            Default = 100, Invalid = 101, Help = 102, SystemError = 103, Fail = 104,
+            PushMT = 105, Reminder = 106,
+
+            // -----YÊU CẦU TẢI NỘI DUNG
             /// <summary>
-            ///  Đăng ký mới thành công
+            ///  Yêu cầu tải nội dung từ khách hàng thanh cong
             /// </summary>
-            RegNewSuccess = 200,
+            RequestSuccess = 200,
 
             /// <summary>
-            ///  Đăng ký lai thành công và miễn phí
+            ///  Không có tin tức nào để trả về cho khách hàng
             /// </summary>
-            RegAgainSuccessFree = 201,
-            /// <summary>
-            ///  Đăng ký lại thành công không miễn phí  = đăng ký lại nhưng hết thời
-            ///  gian khuyến mại
-            /// </summary>
-            RegAgainSuccessNotFree = 202,
+            RequestNoNews = 201,
 
             /// <summary>
-            ///  Đăng ký rồi nhưng lại đăng ký tiếp vần còn trong thời gian khuyến mại
+            ///  Mua nội dung không thành công vì một lý do nào đó
             /// </summary>
-            RegRepeatFree = 203,
+            RequestFail = 202,
+
+            // ----- CONFIRM DOWNLOAD
+            /// <summary>
+            ///  KH xác nhận nội dung cần tải thành công
+            /// </summary>
+            ConfirmSuccess = 300,
 
             /// <summary>
-            ///  Đắng ký lặp trong thời gian hết khuyến mại
+            ///  KH không đủ tiền để tải nội dung
             /// </summary>
-            RegRepeatNotFree = 204,
+            ConfirmNotEnoughMoney = 301,
 
             /// <summary>
-            ///  Đăng ký nhưng tải khoản khách hàng không đủ tiền
+            ///  Nội dung xác nhận download không tồn tại
             /// </summary>
-            RegNotEnoughMoney = 205,
-            /// <summary>
-            ///  Đăng ký không thành công
-            /// </summary>
-            RegFail = 206,
+            ConfirmInvalidContent = 302,
 
             /// <summary>
-            ///  DK nhưng hệ thống bị lỗi
+            ///  Confirm download không thành công
             /// </summary>
-            RegSystemError = 207,
-
-
-            // -----HỦY DỊCH VỤ
-            /// <summary>
-            ///  Hủy thành công dịch vụ
-            /// </summary>
-            DeregSuccess = 300,
+            ConfirmFail = 303,
+            // -----THÔNG BÁO
 
             /// <summary>
-            ///  Huy khi mà chưa đăng ký dịch vụ
+            ///  Thông báo sau khi khách hàng không confirm trong 1 khoảng thời gian nhất định
             /// </summary>
-            DeregNotRegister = 301,
-
-            /// <summary>
-            ///  Hủy không thành công do lỗi hệ thống...
-            /// </summary>
-            DeregFail = 302,
-
-            DeregSystemError = 303,
-
-            /// <summary>
-            ///  Hủy khi gia hạn không thành công
-            /// </summary>
-            DeregExtendFail = 304,
-
-            /// <summary>
-            ///  Nội dung MT DK FREE thành công từ kênh CCOS của Vinaphone
-            /// </summary>
-            RegCCOSSuccessFree = 305,
-
-            /// <summary>
-            ///  Nội dung MT DK Tính phí thành công từ kênh CCOS của Vinaphone
-            /// </summary>
-            RegCCOSSuccessNotFree = 306,
-
-            // ----MUA DỮ KIỆN
-
-            /// <summary>
-            ///  Mua dữ kiện khi chưa đăng ký
-            /// </summary>
-            BuySugNotReg = 400,
-
-            /// <summary>
-            ///  Mua gợi ý nhưng không đủ tiền
-            /// </summary>
-            BuySugNotEnoughMoney = 401,
-
-            /// <summary>
-            ///  Mua dữ kiện khi phiên chơi chưa bắt đầu hoặc đã kết thúc
-            /// </summary>
-            BuySugExpire = 402,
-
-            /// <summary>
-            ///  Mua dữ kiện khi vượt quá 20 lần trong 1 ngày
-            /// </summary>
-            BuySugLimit = 403,
-
-            /// <summary>
-            ///  Mua dữ kiện không thành công do lỗi hệ thống hoặc một lý do
-            ///  nào khác
-            /// </summary>
-            BuySugFail = 404,
-
-            /// <summary>
-            ///  Mua dữ kiện khi đã trả lời đúng trước đó
-            /// </summary>
-            BuySugAnswerRight = 405,
-
-            /// <summary>
-            ///  Mua thành công và trả về dữ kiện
-            /// </summary>
-            BuySugSuccess = 406,
-
-            /// <summary>
-            ///  Bản tin nhắc nhở khi mua dữ kiện  = nếu có
-            /// </summary>
-            BuySugNotify = 407,
-
-            /// <summary>
-            ///  Mua dữ kiện khi thuê bao gia hạn không thành công
-            /// </summary>
-            BuySugNotExtend = 408,
-
-            // -----TRẢ LỜI 
-            /// <summary>
-            ///  trả lời khi chưa mua dữ kiện
-            /// </summary>
-            AnswerNotBuy = 500,
-
-            /// <summary>
-            ///  Trả lời khi chưa đăng ký dịch vụ
-            /// </summary>
-            AnswerNotReg = 501,
-
-            /// <summary>
-            ///  Dự đoán vượt quá số lần cho phép, mỗi 1 lần mua chỉ được
-            ///  dự đoán 1 lần Và dự đoán là cho lần mua gần nhất
-            /// </summary>
-            AnswerLimit = 502,
-
-            /// <summary>
-            ///  Trả lời khi phiên chưa diễn ra
-            /// </summary>
-            AnswerExpire = 503,
-
-            /// <summary>
-            ///  Dự đoán sai
-            /// </summary>
-            AnswerWrong = 504,
-
-            /// <summary>
-            ///  Dự đoán không thành công do phát sinh lỗi hoặc lý do khác...
-            /// </summary>
-            AnswerFail = 505,
-
-            /// <summary>
-            ///  Dự đoán chính xác với kết quả
-            /// </summary>
-            AnswerSuccess = 506,
-
-            /// <summary>
-            ///  Thông báo về phiên chơi mới
-            /// </summary>
-            NotifyNewSession = 600,
-
-            /// <summary>
-            ///  thông báo về người chiến thằng
-            /// </summary>
-            NotifyWinner = 601,
-
-            /// <summary>
-            ///  Tin tức hàng này
-            /// </summary>
-            NewsDaily = 602,
-
-            /// <summary>
-            ///  Thông báo khi gia hạn thành công
-            /// </summary>
-            NotifyRenewSuccess = 603,
+            NotifyExpire = 400,
 
         }
      MyExecuteData mExec;

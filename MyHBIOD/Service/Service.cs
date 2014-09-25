@@ -15,13 +15,27 @@ namespace MyHBIOD.Service
 
         public enum ServiceType
         {
-            [DescriptionAttribute("Loại dịch vụ")]
+            [DescriptionAttribute("Không xác định")]
             Nothing = 0,
-            [DescriptionAttribute("Dịch vụ bình thường")]
+            [DescriptionAttribute("Thông thường")]
             Normal = 1,
+            [DescriptionAttribute("Cung hoàng đạo")]
+            Zodiac = 2,
+            [DescriptionAttribute("Lịch vạn sự")]
+            Calendar = 3,
+        }
+        public enum PushType
+        {
+            [DescriptionAttribute("Không xác định")]
+            Nothing = 0,
+            [DescriptionAttribute("Thời gian")]
+            PushTime = 1,
+            [DescriptionAttribute("Độ ưu tiên")]
+            Priority = 2,
+            [DescriptionAttribute("Ngẫu nhiên")]
+            Random = 3,
 
         }
-
       
         MyExecuteData mExec;
         MyGetData mGet;

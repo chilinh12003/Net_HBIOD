@@ -40,7 +40,7 @@
                 <label>Chọn thời gian trả tin cho dịch vụ:</label><label runat="server" id="label_PushTime"></label>
             </div>
             <input type="text" runat="server" id="tbx_PushTime" style="width: 70px;" />
-            <input type="button" value="..." onclick="displayCalendar(document.getElementById('<%=tbx_PushTime.ClientID %>    '),'dd/mm/yyyy',this)" />
+            <input type="button" value="..." onclick="displayCalendar(document.getElementById('<%=tbx_PushTime.ClientID %>'),'dd/mm/yyyy',this)" />
             <div>
                 <label>
                     Giờ:</label>
@@ -72,7 +72,7 @@
                 Nội dung:
             </div>
             <div class="Edit_Control_Editor">
-                <textarea id="tbx_Contents" onkeyup="return CheckMaxLength(this,800,event);" runat="server" style="float: left; height: 150px; width: 99%;"></textarea>
+                <textarea id="tbx_Contents" onkeyup="return CheckMaxLength(this,799,event);" runat="server" style="float: left; height: 150px; width: 99%;"></textarea>
                 <div id="div_Length" style="float: left; margin-top: 6px; width: 100%; font-size: 12px; font-weight: bold;">
                     Bạn đã nhập vào 0/800 ký tự
                 </div>
@@ -114,7 +114,23 @@
 </asp:Content>
 <asp:Content ID="Content6" ContentPlaceHolderID="cph_Javascript" runat="server">
     <script language="javascript" type="text/javascript">
-            
+        function CheckMaxLength(othis, iMax, e)
+        {
+            if (iMax < $(othis).val().length)
+            {
+                $(othis).val(String($(othis).val()).substring(0, iMax + 1));
+                $("#div_Length").html("Bạn đã nhập vào: " + ($(othis).val().length) + "/" + (iMax + 1) + " ký tự");
+                return false;
+            }
+            else
+            {
+                $("#div_Length").html("Bạn đã nhập vào: " + ($(othis).val().length) + "/" + (iMax + 1) + " ký tự");
+            }
+        }
+
+        var tbx_Contents = document.getElementById("<%=tbx_Contents.ClientID %>");
+        $("#div_Length").html("Bạn đã nhập vào: " + ($(tbx_Contents).val().length) + "/" + (800) + " ký tự");
+
 
     </script>
 </asp:Content>

@@ -27,6 +27,14 @@ namespace MyAdmin.Admin_News
 
                 switch (type)
                 {
+                    case 1:// Bind dữ liệu về dịch vụ
+                        Service mService = new Service();
+                        sel_Service.DataSource = mService.Select(2);
+                        sel_Service.DataValueField = "ServiceID";
+                        sel_Service.DataTextField = "ServiceName";
+                        sel_Service.DataBind();
+                        sel_Service.Items.Insert(0, new ListItem("--Dịch vụ--", "0"));
+                        break;
                     case 3:
                         sel_Status.DataSource = MyEnum.CrateDatasourceFromEnum(typeof(News.Status),true);
                         sel_Status.DataTextField = "Text";
@@ -120,6 +128,7 @@ namespace MyAdmin.Admin_News
                 if (!IsPostBack)
                 {
                     ViewState["SortBy"] = string.Empty;
+                    BindCombo(1);
                     BindCombo(3);
                     BindCombo(4);
                 }
@@ -143,10 +152,16 @@ namespace MyAdmin.Admin_News
                 string SortBy = ViewState["SortBy"].ToString();             
                 int StatusID = 0;
                 int NewsTypeID = 0;
-              
+                int ServiceID = 0;
+
                 SearchType = int.Parse(sel_SearchType.Value);
 
                 str_SearchContent = tbx_Search.Value.Length < 1 ? null : MyText.ValidSearchContent(tbx_Search.Value);
+
+                if (sel_Service.SelectedIndex > 0)
+                {
+                    int.TryParse(sel_Service.Value, out ServiceID);
+                }
 
                 if (sel_Status.SelectedIndex > 0)
                 {
@@ -157,7 +172,7 @@ namespace MyAdmin.Admin_News
                     int.TryParse(sel_NewsType.Value, out NewsTypeID);
                 }            
 
-                return mNews.TotalRow(SearchType, str_SearchContent, (News.Status)StatusID, (News.NewsType)NewsTypeID);
+                return mNews.TotalRow(SearchType, str_SearchContent,ServiceID, (News.Status)StatusID, (News.NewsType)NewsTypeID);
             }
             catch (Exception ex)
             {
@@ -174,10 +189,16 @@ namespace MyAdmin.Admin_News
                 string SortBy = ViewState["SortBy"].ToString();
                 int StatusID = 0;
                 int NewsTypeID = 0;
+                int ServiceID = 0;
 
                 SearchType = int.Parse(sel_SearchType.Value);
 
                 str_SearchContent = tbx_Search.Value.Length < 1 ? null : MyText.ValidSearchContent(tbx_Search.Value);
+
+                if (sel_Service.SelectedIndex > 0)
+                {
+                    int.TryParse(sel_Service.Value, out ServiceID);
+                }
 
                 if (sel_Status.SelectedIndex > 0)
                 {
@@ -190,7 +211,7 @@ namespace MyAdmin.Admin_News
 
                 PageIndex = (Admin_Paging1.mPaging.CurrentPageIndex - 1) * Admin_Paging1.mPaging.PageSize + 1;
 
-                return mNews.Search(SearchType, Admin_Paging1.mPaging.BeginRow, Admin_Paging1.mPaging.EndRow, str_SearchContent, (News.Status)StatusID, (News.NewsType)NewsTypeID, SortBy);
+                return mNews.Search(SearchType, Admin_Paging1.mPaging.BeginRow, Admin_Paging1.mPaging.EndRow, str_SearchContent,ServiceID, (News.Status)StatusID, (News.NewsType)NewsTypeID, SortBy);
             }
             catch (Exception ex)
             {

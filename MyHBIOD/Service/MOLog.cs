@@ -12,6 +12,7 @@ namespace MyHBIOD.Service
 {
     public class MOLog
     {
+        string KeyConnect_InConfig = string.Empty;
         MyExecuteData mExec;
         MyGetData mGet;
 
@@ -23,6 +24,7 @@ namespace MyHBIOD.Service
 
         public MOLog(string KeyConnect_InConfig)
         {
+            this.KeyConnect_InConfig = KeyConnect_InConfig;
             mExec = new MyExecuteData(KeyConnect_InConfig);
             mGet = new MyGetData(KeyConnect_InConfig);
         }
@@ -31,93 +33,27 @@ namespace MyHBIOD.Service
         {
             try
             {
-                if (mChannelType == MyConfig.ChannelType.WAP)
-                {
-                    if (
-                        mMTType == DefineMT.MTType.RegNewSuccess ||
-                        mMTType == DefineMT.MTType.RegAgainSuccessFree ||
-                        mMTType == DefineMT.MTType.RegAgainSuccessNotFree ||
-                        mMTType == DefineMT.MTType.RegRepeatFree ||
-                        mMTType == DefineMT.MTType.RegRepeatNotFree ||
-                        mMTType == DefineMT.MTType.RegNotEnoughMoney ||
-                        mMTType == DefineMT.MTType.RegFail ||
-                        mMTType == DefineMT.MTType.RegSystemError ||
-                        mMTType == DefineMT.MTType.RegCCOSSuccessFree ||
-                        mMTType == DefineMT.MTType.RegCCOSSuccessNotFree
-                        )
-                    {
-                        return "Đăng ký từ wapsite";
-                    }
-                    else if (
-                        mMTType == DefineMT.MTType.DeregSuccess ||
-                        mMTType == DefineMT.MTType.DeregNotRegister ||
-                        mMTType == DefineMT.MTType.DeregExtendFail ||
-                        mMTType == DefineMT.MTType.DeregFail ||
-                        mMTType == DefineMT.MTType.DeregSystemError)
-                    {
-                        return "Hủy đăng ký từ wapsite";
-                    }
-                    else
-                        return "Truy cập wapsite";
-                }
-                else
-                {
                     if (mMTType == DefineMT.MTType.Invalid)
                         return "Gửi MO sai cú pháp";
                     else if (
-                        mMTType == DefineMT.MTType.RegNewSuccess ||
-                        mMTType == DefineMT.MTType.RegAgainSuccessFree ||
-                        mMTType == DefineMT.MTType.RegAgainSuccessNotFree ||
-                        mMTType == DefineMT.MTType.RegRepeatFree ||
-                        mMTType == DefineMT.MTType.RegRepeatNotFree ||
-                        mMTType == DefineMT.MTType.RegNotEnoughMoney ||
-                        mMTType == DefineMT.MTType.RegFail ||
-                        mMTType == DefineMT.MTType.RegSystemError ||
-                        mMTType == DefineMT.MTType.RegCCOSSuccessFree ||
-                        mMTType == DefineMT.MTType.RegCCOSSuccessNotFree)
+                        mMTType == DefineMT.MTType.ConfirmFail ||
+                        mMTType == DefineMT.MTType.ConfirmInvalidContent ||
+                        mMTType == DefineMT.MTType.ConfirmNotEnoughMoney ||
+                        mMTType == DefineMT.MTType.ConfirmSuccess)
                     {
-                        return "Gửi MO DK dịch vụ";
+                        return "Gửi MO DK xác nhận mua nội dung";
                     }
                     else if (
-                        mMTType == DefineMT.MTType.DeregSuccess ||
-                        mMTType == DefineMT.MTType.DeregNotRegister ||
-                        mMTType == DefineMT.MTType.DeregExtendFail ||
-                        mMTType == DefineMT.MTType.DeregFail ||
-                        mMTType == DefineMT.MTType.DeregSystemError)
+                        mMTType == DefineMT.MTType.RequestFail ||
+                        mMTType == DefineMT.MTType.RequestNoNews ||
+                        mMTType == DefineMT.MTType.RequestSuccess)
                     {
-                        return "Gửi MO HUY dịch vụ";
+                        return "Gửi MO yêu cầu mua nội dung";
                     }
-                    else if (
-                        mMTType == DefineMT.MTType.BuySugAnswerRight ||
-                        mMTType == DefineMT.MTType.BuySugExpire ||
-                        mMTType == DefineMT.MTType.BuySugFail ||
-                        mMTType == DefineMT.MTType.BuySugLimit ||
-                        mMTType == DefineMT.MTType.BuySugNotEnoughMoney ||
-                        mMTType == DefineMT.MTType.BuySugNotExtend ||
-                        mMTType == DefineMT.MTType.BuySugNotify ||
-                        mMTType == DefineMT.MTType.BuySugNotReg ||
-                        mMTType == DefineMT.MTType.BuySugSuccess
-
-                        )
-                    {
-                        return "Gửi MO mua dữ kiện";
-                    }
-                    else if (
-                        mMTType == DefineMT.MTType.AnswerExpire ||
-                        mMTType == DefineMT.MTType.AnswerFail ||
-                        mMTType == DefineMT.MTType.AnswerLimit ||
-                        mMTType == DefineMT.MTType.AnswerNotBuy ||
-                        mMTType == DefineMT.MTType.AnswerNotReg ||
-                        mMTType == DefineMT.MTType.AnswerSuccess ||
-                        mMTType == DefineMT.MTType.AnswerWrong
-
-                    )
-                    {
-                        return "Gửi MO dự đoán";
-                    }
+                   
                     else
                         return "Gửi MO";
-                }
+                
 
             }
             catch (Exception ex)
@@ -324,8 +260,29 @@ namespace MyHBIOD.Service
 
                 string[] mpara = { "Type", "BeginRow", "EndRow", "SearchContent", "PID","ServiceID", "MTTypeID",  "ChannelTypeID", "BeginDate", "EndDate", "OrderBy", "IsTotalRow" };
                 string[] mValue = { Type.ToString(), BeginRow.ToString(), EndRow.ToString(), SearchContent, PID.ToString(),ServiceID.ToString(), MTTypeID.ToString(),  ChannelTypeID.ToString(), str_BeginDate, str_EndDate, OrderBy, false.ToString() };
-                DataTable mTable = mGet.GetDataTable("Sp_MOLog_Search", mpara, mValue);              
+                DataTable mTable = mGet.GetDataTable("Sp_MOLog_Search", mpara, mValue);
 
+                DataColumn mCol_ServiceName = new DataColumn("ServiceName", typeof(string));
+                DataColumn mCol_Packagename = new DataColumn("PackageName", typeof(string));
+                mTable.Columns.AddRange(new DataColumn[] { mCol_ServiceName, mCol_Packagename });
+
+                Service mService = new Service();
+                if(!string.IsNullOrEmpty(KeyConnect_InConfig))
+                {
+                    mService = new Service(KeyConnect_InConfig);
+                }
+
+                DataTable mTable_Service = mService.Select(3);
+
+                foreach (DataRow mRow in mTable.Rows)
+                {
+                    mTable_Service.DefaultView.RowFilter = "ServiceID = " + mRow["ServiceID"].ToString();
+                    if(mTable_Service.DefaultView.Count > 0)
+                    {
+                        mRow["ServiceName"] = mTable_Service.DefaultView[0]["ServiceName"];
+                        mRow["PackageName"] = mTable_Service.DefaultView[0]["PackageName"];
+                    }
+                }
                 return mTable;
             }
             catch (Exception ex)
@@ -384,12 +341,30 @@ namespace MyHBIOD.Service
                 DataColumn mCol_3 = new DataColumn("Description", typeof(string));
                 mTable.Columns.Add(mCol_3);
 
-               
+                DataColumn mCol_ServiceName = new DataColumn("ServiceName", typeof(string));
+                DataColumn mCol_Packagename = new DataColumn("PackageName", typeof(string));
+                mTable.Columns.AddRange(new DataColumn[] { mCol_ServiceName, mCol_Packagename });
+
+                Service mService = new Service();
+                if (!string.IsNullOrEmpty(KeyConnect_InConfig))
+                {
+                    mService = new Service(KeyConnect_InConfig);
+                }
+
+                DataTable mTable_Service = mService.Select(3);               
+
+              
                 foreach (DataRow mRow in mTable.Rows)
                 {
                     mRow["ActionName"] = ConvertMTTypeIDToActionName((DefineMT.MTType)int.Parse(mRow["MTTypeID"].ToString()), (MyConfig.ChannelType)int.Parse(mRow["ChannelTypeID"].ToString()));
                     mRow["Description"] = ConvertMTTypeIDToDescription((DefineMT.MTType)int.Parse(mRow["MTTypeID"].ToString()), (MyConfig.ChannelType)int.Parse(mRow["ChannelTypeID"].ToString()));
-                  
+
+                    mTable_Service.DefaultView.RowFilter = "ServiceID = " + mRow["ServiceID"].ToString();
+                    if (mTable_Service.DefaultView.Count > 0)
+                    {
+                        mRow["ServiceName"] = mTable_Service.DefaultView[0]["ServiceName"];
+                        mRow["PackageName"] = mTable_Service.DefaultView[0]["PackageName"];
+                    }
                 }
 
                 return mTable;

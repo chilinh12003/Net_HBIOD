@@ -68,7 +68,7 @@
                             Mua dữ kiện
                         </td>
                         <td>
-                            NGUOINOITIENG
+                             <%#Eval("PackageName")%>
                         </td>
                         <td>
                             <%#Eval("ChargeStatusName")%>
@@ -95,7 +95,7 @@
                             Mua dữ kiện
                         </td>
                         <td>
-                            NGUOINOITIENG
+                             <%#Eval("PackageName")%>
                         </td>
                         <td>
                             <%#Eval("ChargeStatusName")%>

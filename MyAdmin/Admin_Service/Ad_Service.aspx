@@ -29,6 +29,7 @@
     <select runat="server" id="sel_SearchType">
         <option value="0">- - Tìm theo tất cả - - </option>
     </select>
+
     <select runat="server" id="sel_Active">
         <option value="0">--Active--</option>
         <option value="1">Kích Hoạt</option>
@@ -52,7 +53,7 @@
                 <th>Đăng ký</th>
                 <th>Hủy</th>
                 <th>Loại dịch vụ</th>
-                <th>Package</th>
+                <th>Tên gói</th>
                 <th>Giá</th>
                 <th>Ưu tiên</th>
                 <th>Active</th>

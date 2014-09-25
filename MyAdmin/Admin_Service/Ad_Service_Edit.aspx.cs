@@ -34,7 +34,14 @@ namespace MyAdmin.Admin_Service
                         sel_ServiceType.DataValueField = "ID";
                         sel_ServiceType.DataTextField = "TEXT";
                         sel_ServiceType.DataBind();
-                        break;                  
+                        break;
+                    case 2:
+                        sel_PushType.DataSource = MyEnum.CrateDatasourceFromEnum(typeof(Service.PushType));
+                        sel_PushType.DataValueField = "ID";
+                        sel_PushType.DataTextField = "TEXT";
+                        sel_PushType.DataBind();
+                        break;   
+               
                 }
             }
             catch (Exception ex)
@@ -117,6 +124,7 @@ namespace MyAdmin.Admin_Service
                 {
                  
                     BindCombo(1);
+                    BindCombo(2);
                   
                     //Nếu là Edit
                     if (EditID > 0)
@@ -133,6 +141,9 @@ namespace MyAdmin.Admin_Service
                           
                             if (mRow["ServiceTypeID"] != DBNull.Value)
                                 sel_ServiceType.SelectedIndex = sel_ServiceType.Items.IndexOf(sel_ServiceType.Items.FindByValue(mRow["ServiceTypeID"].ToString()));
+
+                            if (mRow["PushTypeID"] != DBNull.Value)
+                                sel_PushType.SelectedIndex = sel_PushType.Items.IndexOf(sel_PushType.Items.FindByValue(mRow["PushTypeID"].ToString()));
 
                             tbx_ServiceName.Value = mRow["ServiceName"].ToString();
                             tbx_RegKeyword.Value = mRow["RegKeyword"].ToString();
@@ -175,7 +186,7 @@ namespace MyAdmin.Admin_Service
                 mNewRow["ServiceTypeID"] = int.Parse(sel_ServiceType.Value);
                 mNewRow["ServiceTypeName"] = sel_ServiceType.Items[sel_ServiceType.SelectedIndex].Text;
             }
-
+            mNewRow["PushTypeID"] = int.Parse(sel_PushType.Value);
             mNewRow["ServiceName"] = tbx_ServiceName.Value;
             mNewRow["RegKeyword"] = tbx_RegKeyword.Value;
             mNewRow["DeregKeyword"] = tbx_DeregKeyword.Value;

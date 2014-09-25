@@ -80,30 +80,26 @@
     <Compile Include="Gateway\ems_send_queue.cs" />
     <Compile Include="Gateway\KPI.cs" />
     <Compile Include="Gateway\sms_receive_queue.cs" />
+    <Compile Include="News\Zodiac.cs" />
     <Compile Include="Permission\GetRole.cs" />
     <Compile Include="Permission\Member.cs" />
     <Compile Include="Permission\MemberGroup.cs" />
     <Compile Include="Permission\MemberLog.cs" />
     <Compile Include="Permission\MenuAdmin.cs" />
-    <Compile Include="News\Suggest.cs" />
-    <Compile Include="News\Question.cs" />
     <Compile Include="News\News.cs" />
     <Compile Include="Permission\Partner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\RP_MOTotal.cs" />
     <Compile Include="Report\RP_MO.cs" />
     <Compile Include="Report\RP_Sub.cs" />
-    <Compile Include="Report\RPChargeByDay.cs" />
     <Compile Include="Service\ChargeLog.cs" />
     <Compile Include="Permission\Role.cs" />
     <Compile Include="Service\Service.cs" />
-    <Compile Include="Service\SuggestCount.cs" />
-    <Compile Include="Service\Winner.cs" />
-    <Compile Include="Service\Play.cs" />
     <Compile Include="Service\DefineMT.cs" />
     <Compile Include="Service\Keyword.cs" />
     <Compile Include="Service\MOLog.cs" />
-    <Compile Include="Sub\UnSubscriber.cs" />
+    <Compile Include="Sub\SubNews.cs" />
+    <Compile Include="Sub\SubNewsLog.cs" />
     <Compile Include="Sub\Subscriber.cs" />
   </ItemGroup>
   <ItemGroup>

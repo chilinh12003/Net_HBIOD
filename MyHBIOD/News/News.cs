@@ -12,38 +12,7 @@ namespace MyHBIOD.News
 {
     public class News
     {
-        /// <summary>
-        /// Cung Hoàn đạo
-        /// </summary>
-        public enum Zodiac
-        {
-            [DescriptionAttribute("Tất cả")]
-            Nothing = 0,
-            [DescriptionAttribute("Bạch dương")]
-            BachDuong = 1,
-            [DescriptionAttribute("Kim Ngưu")]
-            KimNguu = 2,
-            [DescriptionAttribute("Song Tử")]
-            SongTu = 3,
-            [DescriptionAttribute("Cự Giải")]
-            Cugiai = 4,
-            [DescriptionAttribute("Sư Tử")]
-            Sutu = 5,
-            [DescriptionAttribute("Xử nữ")]
-            Xunu = 6,
-            [DescriptionAttribute("Hổ Cáp")]
-            HoCap = 7,
-            [DescriptionAttribute("Nhân Mã")]
-            NhanMa = 8,
-            [DescriptionAttribute("Ma Kết")]
-            MaKet = 9,
-            [DescriptionAttribute("Bảo Bình")]
-            BaoBinh = 10,
-            [DescriptionAttribute("Song Ngư")]
-            SongNgu = 11,
-            [DescriptionAttribute("Thiên Bình")]
-            ThienBinh = 12,
-        }
+       
         public enum NewsType
         {
             [DescriptionAttribute("Tất cả")]
@@ -57,14 +26,10 @@ namespace MyHBIOD.News
         {
             [DescriptionAttribute("Nothing")]
             Nothing = 0,
-            [DescriptionAttribute("Tin mới")]
-            New = 1,
-            [DescriptionAttribute("Đang gửi")]
-            Sending = 2,
-            [DescriptionAttribute("Đã gửi")]
-            Complete = 3,
-            [DescriptionAttribute("Chờ duyệt")]
-            Waiting = 4,
+            [DescriptionAttribute("Kích hoạt")]
+            Active = 1,
+            [DescriptionAttribute("Hủy kích hoạt")]
+            Deactive = 2,
         }
 
       
@@ -190,12 +155,12 @@ namespace MyHBIOD.News
             }
         }
                
-        public int TotalRow(int? Type, string SearchContent, Status StatusID, NewsType NewsTypeID)
+        public int TotalRow(int? Type, string SearchContent,int ServiceID, Status StatusID, NewsType NewsTypeID)
         {
             try
             {
-                string[] mpara = { "Type", "SearchContent","StatusID","NewsTypeID", "IsTotalRow" };
-                string[] mValue = { Type.ToString(), SearchContent,((int)StatusID).ToString(),((int)NewsTypeID).ToString(), true.ToString() };
+                string[] mpara = { "Type", "SearchContent","ServiceID","StatusID","NewsTypeID", "IsTotalRow" };
+                string[] mValue = { Type.ToString(), SearchContent, ServiceID.ToString(),((int)StatusID).ToString(), ((int)NewsTypeID).ToString(), true.ToString() };
                 return (int)mGet.GetExecuteScalar("Sp_News_Search", mpara, mValue);
             }
             catch (Exception ex)
@@ -204,12 +169,12 @@ namespace MyHBIOD.News
             }
         }
 
-        public DataTable Search(int? Type, int BeginRow, int EndRow, string SearchContent, Status StatusID, NewsType NewsTypeID,  string OrderBy)
+        public DataTable Search(int? Type, int BeginRow, int EndRow, string SearchContent,int ServiceID, Status StatusID, NewsType NewsTypeID,  string OrderBy)
         {
             try
             {
-                string[] mpara = { "Type", "BeginRow", "EndRow", "SearchContent","StatusID", "NewsTypeID",  "OrderBy", "IsTotalRow" };
-                string[] mValue = { Type.ToString(), BeginRow.ToString(), EndRow.ToString(), SearchContent,((int)StatusID).ToString(), ((int)NewsTypeID).ToString(), OrderBy, false.ToString() };
+                string[] mpara = { "Type", "BeginRow", "EndRow", "SearchContent","ServiceID","StatusID", "NewsTypeID",  "OrderBy", "IsTotalRow" };
+                string[] mValue = { Type.ToString(), BeginRow.ToString(), EndRow.ToString(), SearchContent, ServiceID.ToString(), ((int)StatusID).ToString(), ((int)NewsTypeID).ToString(), OrderBy, false.ToString() };
                 return mGet.GetDataTable("Sp_News_Search", mpara, mValue);
             }
             catch (Exception ex)

@@ -36,6 +36,7 @@
                 <th>
                     Thời gian nhận
                 </th>
+                <th>Gói</th>
                 <th>
                     MO
                 </th>
@@ -73,6 +74,9 @@
                         <td>
                             <%#Eval("ReceiveDate") == DBNull.Value ? string.Empty : ((DateTime)Eval("ReceiveDate")).ToString(MyUtility.MyConfig.LongDateFormat)%>
                         </td>
+                         <td>
+                            <%#Eval("PackageName")%>
+                        </td>
                         <td>
                             <%#Eval("MO")%>
                         </td>
@@ -80,7 +84,7 @@
                             <%#Eval("ChannelTypeName")%>
                         </td>
                         <td>Đã xử lý </td>
-                        <td>1566 </td>
+                        <td>9315 </td>
                         <td>
                             <%#Eval("SendDate") == DBNull.Value ? string.Empty : ((DateTime)Eval("SendDate")).ToString(MyUtility.MyConfig.LongDateFormat)%>
                         </td>
@@ -102,13 +106,16 @@
                             <%#Eval("ReceiveDate") == DBNull.Value ? string.Empty : ((DateTime)Eval("ReceiveDate")).ToString(MyUtility.MyConfig.LongDateFormat)%>
                         </td>
                         <td>
+                            <%#Eval("PackageName")%>
+                        </td>
+                        <td>
                             <%#Eval("MO")%>
                         </td>
                          <td>
                             <%#Eval("ChannelTypeName")%>
                         </td>
                         <td>Đã xử lý </td>
-                        <td>1566 </td>
+                        <td>9315 </td>
                         <td>
                             <%#Eval("SendDate") == DBNull.Value ? string.Empty : ((DateTime)Eval("SendDate")).ToString(MyUtility.MyConfig.LongDateFormat)%>
                         </td>

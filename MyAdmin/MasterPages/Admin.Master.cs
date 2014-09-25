@@ -104,7 +104,7 @@ namespace MyAdmin.MasterPages
                     return;
                 }
             }
-            a_DangNhap.HRef = MyConfig.URLLogin + "?PrevURL=" + Server.UrlEncode(Request.Url.ToString());
+            a_DangNhap.HRef = MyConfig.URLLogin + "?PrevURL=" + Request.Url.ToString();
 
             if (Member.IsLogined() && (Session["Menu_1"] == null || Session["Menu_1"].ToString().Length < 1))
             {

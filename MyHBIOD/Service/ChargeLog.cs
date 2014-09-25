@@ -13,6 +13,7 @@ namespace MyHBIOD.Service
 {
     public class ChargeLog
     {
+        string KeyConnect_InConfig = string.Empty;
         public enum ChargeType
         {
             REG = 1,
@@ -52,6 +53,7 @@ namespace MyHBIOD.Service
 
         public ChargeLog(string KeyConnect_InConfig)
         {
+            this.KeyConnect_InConfig = KeyConnect_InConfig;
             mExec = new MyExecuteData(KeyConnect_InConfig);
             mGet = new MyGetData(KeyConnect_InConfig);
         }
@@ -545,6 +547,28 @@ namespace MyHBIOD.Service
                 string[] mpara = { "Type", "BeginRow", "EndRow", "SearchContent", "PID","ServiceID", "ChargeTypeID", "ChargeStatusID", "ChannelTypeID", "BeginDate", "EndDate", "SelectType", "OrderBy", "IsTotalRow" };
                 string[] mValue = { Type.ToString(), BeginRow.ToString(), EndRow.ToString(), SearchContent, PID.ToString(),ServiceID.ToString(), ChargeTypeID.ToString(), ChargeStatusID.ToString(), ChannelTypeID.ToString(), str_BeginDate, str_EndDate, SelectType.ToString(), OrderBy, false.ToString() };
                 DataTable mTable = mGet.GetDataTable("Sp_ChargeLog_Search", mpara, mValue);
+
+                DataColumn mCol_ServiceName = new DataColumn("ServiceName", typeof(string));
+                DataColumn mCol_Packagename = new DataColumn("PackageName", typeof(string));
+                mTable.Columns.AddRange(new DataColumn[] { mCol_ServiceName, mCol_Packagename });
+
+                Service mService = new Service();
+                if (!string.IsNullOrEmpty(KeyConnect_InConfig))
+                {
+                    mService = new Service(KeyConnect_InConfig);
+                }
+
+                DataTable mTable_Service = mService.Select(3);
+
+                foreach (DataRow mRow in mTable.Rows)
+                {
+                    mTable_Service.DefaultView.RowFilter = "ServiceID = " + mRow["ServiceID"].ToString();
+                    if (mTable_Service.DefaultView.Count > 0)
+                    {
+                        mRow["ServiceName"] = mTable_Service.DefaultView[0]["ServiceName"];
+                        mRow["PackageName"] = mTable_Service.DefaultView[0]["PackageName"];
+                    }
+                }
 
                 return mTable;
             }

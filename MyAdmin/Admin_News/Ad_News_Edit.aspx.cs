@@ -17,7 +17,7 @@ namespace MyAdmin.Admin_News
         public GetRole mGetRole;
         News mNews = new News();    
         int EditID = 0;
-        public int Content_MaxLength = 480;
+        public int Content_MaxLength = 800;
 
         public string ParentPath = "../Admin_News/Ad_News.aspx";
 
@@ -32,7 +32,6 @@ namespace MyAdmin.Admin_News
                     return null;
                 else
                     return (DataTable)ViewState["SaveService"];
-
             }
             set
             {
@@ -48,7 +47,6 @@ namespace MyAdmin.Admin_News
 
                 switch (type)
                 {
-                  
                     case 1:
                         sel_Status.DataSource = MyEnum.CrateDatasourceFromEnum(typeof(News.Status), true);
                         sel_Status.DataTextField = "Text";
@@ -92,7 +90,7 @@ namespace MyAdmin.Admin_News
                         sel_Service.DataBind();
                         break;
                     case 7:// Bind dữ liệu về Cung Hoàng Đạo
-                        sel_Zodiac.DataSource = MyEnum.CrateDatasourceFromEnum(typeof(News.Zodiac), true);
+                        sel_Zodiac.DataSource = MyEnum.CrateDatasourceFromEnum(typeof(Zodiac.ZodiacList), true);
                         sel_Zodiac.DataTextField = "Text";
                         sel_Zodiac.DataValueField = "ID";
                         sel_Zodiac.DataBind();

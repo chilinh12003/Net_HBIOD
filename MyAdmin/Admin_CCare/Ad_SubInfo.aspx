@@ -78,6 +78,8 @@
                         </p>
                         <table class="table table-striped">
                             <tr>
+                                 <th>STT
+                                </th>
                                 <th>Số điện Thoại
                                 </th>
                                 <th>Gói dịch vụ
@@ -99,16 +101,16 @@
                                         <td><%#Eval("MSISDN")%></td>
                                         <td><%#Eval("ServiceName")%></td>
                                         <th>
-                                            <%#Eval("StatusName")%>
+                                            Đã từ sử dụng DV
                                         </th>
                                         <td>
                                             <%#Eval("FirstDate") == DBNull.Value ? string.Empty : ((DateTime)Eval("FirstDate")).ToString(MyUtility.MyConfig.LongDateFormat)%>
                                         </td>
                                         <td>
-                                            <%#Eval("LastUpdate") == DBNull.Value ? string.Empty : ((DateTime)Eval("LastUpdate")).ToString(MyUtility.MyConfig.LongDateFormat)%>
+                                            <%#  Eval("ConfirmDate") != DBNull.Value ?((DateTime)Eval("ConfirmDate")).ToString(MyUtility.MyConfig.LongDateFormat):(Eval("RequestDate") == DBNull.Value ? string.Empty : ((DateTime)Eval("RequestDate")).ToString(MyUtility.MyConfig.LongDateFormat))%>
                                         </td>
                                         <td>
-                                            <%#Eval("ChargeDate") == DBNull.Value ? string.Empty : ((DateTime)Eval("ChargeDate")).ToString(MyUtility.MyConfig.LongDateFormat)%>
+                                            <%#Eval("ChargeSuccessDate") == DBNull.Value ? string.Empty : ((DateTime)Eval("ChargeSuccessDate")).ToString(MyUtility.MyConfig.LongDateFormat)%>
                                         </td>
                                     </tr>
                                 </ItemTemplate>
@@ -148,7 +150,7 @@
                                         <td>Mua dữ kiện
                                         </td>
                                         <td>
-                                            <%#Eval("ServiceName")%>
+                                            <%#Eval("PackageName")%>
                                         </td>
                                         <td>
                                             <%#Eval("ChargeStatusName")%>

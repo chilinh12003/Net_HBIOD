@@ -9,38 +9,36 @@
         <span class="Delete"></span>
             Xóa
     </asp:LinkButton>
-    <a href="Ad_News_Edit.aspx" runat="server" id="link_Add"><span class="Add"></span>Thêm </a>  
+    <a href="Ad_News_Edit.aspx" runat="server" id="link_Add"><span class="Add"></span>Thêm </a>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_ToolBox" runat="server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="cph_Search" runat="server">
-  
-        <label>
-            Từ khóa:</label>
-        <input type="text" runat="server" id="tbx_Search" /> 
- 
-    <select runat="server" id="sel_SearchType">
+
+    <label>
+        Từ khóa:</label>
+    <input type="text" runat="server" id="tbx_Search" />
+
+    <select runat="server" id="sel_SearchType" visible="false">
         <option value="0">- - Tìm theo tất cả - - </option>
     </select>
-  
+     <select runat="server" id="sel_Service"></select>
     <select runat="server" id="sel_Status">
     </select>
     <select runat="server" id="sel_NewsType">
-    </select> 
+    </select>
     <asp:Button runat="server" ID="btn_Search" Text="Tìm kiếm" OnClick="btn_Search_Click" />
 </asp:Content>
 <asp:Content ID="Content5" ContentPlaceHolderID="cph_Content" runat="server">
     <table class="Data" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr class="Table_Header">
-                <th class="Table_TL">
+                <th class="Table_TL"></th>
+                <th width="10">STT
                 </th>
-                <th width="10">
-                    STT
-                </th>    
                 <th>
                     <asp:LinkButton runat="server" CssClass="Sort" ID="lbtn_Sort_3" CommandArgument="ServiceID ASC" OnClick="lbtn_Sort_Click">Dịch vụ</asp:LinkButton>
-                </th>         
+                </th>
                 <th>
                     <asp:LinkButton runat="server" CssClass="Sort" ID="lbtn_Sort_1" CommandArgument="NewsID ASC" OnClick="lbtn_Sort_Click">Mã</asp:LinkButton>
                 </th>
@@ -50,36 +48,33 @@
                 <th>
                     <asp:LinkButton runat="server" CssClass="Sort" ID="lbtn_Sort_4" CommandArgument="NewsTypeID DESC" OnClick="lbtn_Sort_Click">Loại tin</asp:LinkButton>
                 </th>
-                <th style="width: 30%; ">
-                    Nội dung
-                </th>   
-                         <th>
+                <th style="width: 30%;">Nội dung
+                </th>
+                <th>
                     <asp:LinkButton runat="server" CssClass="Sort" ID="lbtn_Sort_7" CommandArgument="PushTime DESC" OnClick="lbtn_Sort_Click">Ngày trả tin</asp:LinkButton>
-                </th>       
+                </th>
                 <th>
                     <asp:LinkButton runat="server" CssClass="Sort" ID="lbtn_Sort_6" CommandArgument="StatusID DESC" OnClick="lbtn_Sort_Click">Tình trạng</asp:LinkButton>
-                </th>    
+                </th>
                 <th>
                     <asp:LinkButton runat="server" CssClass="Sort" ID="lbtn_Sort_5" CommandArgument="Priority DESC" OnClick="lbtn_Sort_Click">Ưu tiên</asp:LinkButton>
-                </th>     
+                </th>
                 <th>Hoàng đạo</th>
                 <th align="center" width="10">
                     <input type="checkbox" onclick="SelectCheckBox_All(this);" />
                 </th>
-                <th class="Table_TR">
-                </th>
+                <th class="Table_TR"></th>
             </tr>
             <asp:Repeater runat="server" ID="rpt_Data">
                 <ItemTemplate>
                     <tr class="Table_Row_1">
-                        <td class="Table_ML_1">
-                        </td>
+                        <td class="Table_ML_1"></td>
                         <td>
                             <%#(Container.ItemIndex + PageIndex).ToString()%>
-                        </td>   
-                         <td>
+                        </td>
+                        <td>
                             <%#Eval("ServiceName") %>
-                        </td>                    
+                        </td>
                         <td>
                             <%#Eval("NewsID") %>
                         </td>
@@ -90,38 +85,36 @@
                         <td>
                             <%#Eval("NewsTypeName")%>
                         </td>
-                        <td style="padding:5px 0 5px 0;">
+                        <td style="padding: 5px 0 5px 0;">
                             <%#Eval("MT")%>
                         </td>
                         <td>
                             <%#Eval("PushTime") == DBNull.Value ? string.Empty : ((DateTime)Eval("PushTime")).ToString(MyUtility.MyConfig.LongDateFormat)%>
                         </td>
-                         <td>
+                        <td>
                             <%#Eval("StatusName")%>
-                        </td>          
-                          <td>
+                        </td>
+                        <td>
                             <%#Eval("Priority")%>
-                        </td>            
-                         <td>
+                        </td>
+                        <td>
                             <%#Eval("ZodiacName")%>
-                        </td>       
+                        </td>
                         <td align="center" width="10">
                             <%#"<input type='checkbox' id='CheckAll_" + Container.ItemIndex.ToString() + "' value='" + Eval("NewsID").ToString() + "' />"%>
                         </td>
-                        <td class="Table_MR_1">
-                        </td>
+                        <td class="Table_MR_1"></td>
                     </tr>
                 </ItemTemplate>
                 <AlternatingItemTemplate>
                     <tr class="Table_Row_2">
-                        <td class="Table_ML_2">
-                        </td>
-                         <td>
+                        <td class="Table_ML_2"></td>
+                        <td>
                             <%#(Container.ItemIndex + PageIndex).ToString()%>
-                        </td>   
-                         <td>
+                        </td>
+                        <td>
                             <%#Eval("ServiceName") %>
-                        </td>                    
+                        </td>
                         <td>
                             <%#Eval("NewsID") %>
                         </td>
@@ -132,26 +125,25 @@
                         <td>
                             <%#Eval("NewsTypeName")%>
                         </td>
-                        <td style="padding:5px 0 5px 0;">
+                        <td style="padding: 5px 0 5px 0;">
                             <%#Eval("MT")%>
                         </td>
                         <td>
                             <%#Eval("PushTime") == DBNull.Value ? string.Empty : ((DateTime)Eval("PushTime")).ToString(MyUtility.MyConfig.LongDateFormat)%>
                         </td>
-                         <td>
+                        <td>
                             <%#Eval("StatusName")%>
-                        </td>          
-                          <td>
+                        </td>
+                        <td>
                             <%#Eval("Priority")%>
-                        </td>   
-                         <td>
+                        </td>
+                        <td>
                             <%#Eval("ZodiacName")%>
-                        </td>              
+                        </td>
                         <td align="center" width="10">
                             <%#"<input type='checkbox' id='CheckAll_" + Container.ItemIndex.ToString() + "' value='" + Eval("NewsID").ToString() + "' />"%>
                         </td>
-                        <td class="Table_MR_2">
-                        </td>
+                        <td class="Table_MR_2"></td>
                     </tr>
                 </AlternatingItemTemplate>
             </asp:Repeater>
@@ -174,16 +166,14 @@
 
         ReCheck_CheckboxOnGrid();
 
-        function EditData()
-        {
-            if (BeforeEditData())
-            {
+        function EditData() {
+            if (BeforeEditData()) {
                 document.location = '../Admin_News/Ad_News_Edit.aspx?ID=' + hid_ListCheckAll.value;
 
                 return true;
             }
             return false;
         }
-       
+
     </script>
 </asp:Content>
