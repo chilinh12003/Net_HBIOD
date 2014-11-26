@@ -88,28 +88,46 @@ namespace MyHBIOD.Service
             }
         }
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Type">
-        /// <para>Type = 2: Lấy Số lượng thuê bao có MO Đăng ký (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 3: Lấy Số lượng thuê bao có MO Hủy(Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 4: Lấy Số lượng thuê bao có MO Mua du kien(Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 5: Lấy Số lượng thuê bao có MO Trả lời (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 6: Lấy Số lượng thuê bao có MO sai cu phap (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 7: Lấy Số lượng thuê bao có MO khac (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 9: Lấy Số lượng MO Đăng ký (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 10: Lấy Số lượng MO Hủy(Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 11: Lấy Số lượng MO Mua du kien(Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 12: Lấy Số lượng MO Trả lời (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 13: Lấy Số lượng MO sai cu phap (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 14: Lấy Số lượng MO khac (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 15: Lấy Số lượng MO Đăng ký tính tiền thành công (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 16: Lấy Số lượng MO mua nội dung tính tiền thành công (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 17: Lấy Tổng tiền MO đăng ký tính tiền thành công (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 18: Lấy Tổng tiền MO Mua dữ kiện tính tiền thành công (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 19: Lấy số lượng Thuê bao có MO đúng cú (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
-        /// <para>Type = 20: Lấy số lượng Thuê bao (Para_1 = PID, Para_2 = BeginDate, Para_3 = EndDate</para>
+        /// <para>Type = 2: Lấy chi tiết 1 Record (Para_1 = PID AND Para_2 = LogID)</para>
+        /// </param>
+        /// <param name="Para_1"></param>
+        /// <param name="Para_2"></param>
+        /// <returns></returns>
+        public DataTable Select(int Type, string Para_1, string Para_2)
+        {
+            try
+            {
+                string[] mPara = { "Type", "Para_1", "Para_2"};
+                string[] mValue = { Type.ToString(), Para_1, Para_2 };
+                DataTable mTable = mGet.GetDataTable("Sp_MOLog_Select", mPara, mValue);
+
+                if (mTable.Columns.Count == 1 && mTable.Rows.Count == 0)
+                {
+                    DataRow mRow = mTable.NewRow();
+                    mRow[0] = 0;
+                    mTable.Rows.Add(mRow);
+                }
+                if (mTable.Columns.Count == 1 && mTable.Rows[0][0] == DBNull.Value)
+                {
+                    mTable.Rows[0][0] = 0;
+                }
+                return mTable;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Type">
         /// </param>
         /// <param name="Para_1"></param>
         /// <param name="Para_2"></param>

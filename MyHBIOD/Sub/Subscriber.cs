@@ -39,58 +39,11 @@ namespace MyHBIOD.Sub
             /// </summary>
             NoThing = 0,
 
-            [DescriptionAttribute("Đang sử dụng")]
+            [DescriptionAttribute("Từng sử dụng")]
             ///<summary>
             ///  Kích hoạt
             /// </summary>
-            Active = 1,
-
-            [DescriptionAttribute("Đã hủy")]
-            ///<summary>
-            ///  Hủy kích hoạt
-            /// </summary>
-            Deactive = 2,
-
-            [DescriptionAttribute("Retry charging")]
-            ///<summary>
-            ///  Charge không thành công
-            /// </summary>
-            ChargeFail = 3,
-
-            [DescriptionAttribute("Chờ xác nhận hủy")]
-            ///<summary>
-            ///  Đang chờ xác nhận hủy dịch vụ
-            /// </summary>
-            ConfirmDeregister = 4,
-
-            [DescriptionAttribute("DK gói Bundle")]
-            ///<summary>
-            ///  Đăng từ kênh API và được sử dụng gọi bundle
-            /// </summary>
-            ActiveBundle = 5,
-
-            [DescriptionAttribute("KM Trial")]
-            ///<summary>
-            ///  Đăng ký từ kênh API và được sử dụng trial
-            /// </summary>
-            ActiveTrial = 6,
-
-            [DescriptionAttribute("KM Promotion")]
-            ///<summary>
-            ///  Đăng ký từ kênh API và được sử dụng Promtion
-            /// </summary>
-            ActivePromotion = 7,
-
-            [DescriptionAttribute("Hủy thuê bao")]
-            ///<summary>
-            ///  Thuê bao này đã được hệ thống Vinaphone Hủy Thuê Bao, nếu có đăng ký lại thì sẽ coi như số điện thoại mới
-            /// </summary>
-            UndoSub = 8,
-            [DescriptionAttribute("Chưa từng sử dụng DV")]
-            ///<summary>
-            ///  Thuê bao chưa từng đăng ký sử dụng dịch vụ 1 lần nào
-            /// </summary>
-            NeverReg = 9,
+            Active = 1,        
 
                 
         }
@@ -130,6 +83,22 @@ namespace MyHBIOD.Sub
             }
         }
 
+
+        public DataTable Select(int Type)
+        {
+            try
+            {
+                string[] mPara = { "Type" };
+                string[] mValue = { Type.ToString() };
+                return mGet.GetDataTable("Sp_Subscriber_Select", mPara, mValue);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -155,15 +124,7 @@ namespace MyHBIOD.Sub
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Type">
-        /// <para>Type = 2: Lấy chi tiết 1 Record (Para_1 = PID, Para_2 = MSISDN)</para>
-        /// </param>
-        /// <param name="Para_1"></param>
-        /// <param name="Para_2"></param>
-        /// <returns></returns>
+      
         public DataTable Select(int Type, string Para_1, string Para_2)
         {
             try
@@ -177,6 +138,30 @@ namespace MyHBIOD.Sub
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Lấy dữ liệu
+        /// </summary>
+        /// <param name="Type">Cách thức lấy
+        /// <para>Type = 2: Lấy chi tiết 1 Record (Para_1 = PID, Para_2 = MSISDN, Para_3 = ServiceID)</para>        
+        /// </param>
+        /// <param name="Para_1"></param>
+        /// <param name="Para_2"></param>
+        /// <returns></returns>
+        public DataTable Select(int Type, string Para_1, string Para_2, string Para_3)
+        {
+            try
+            {
+                string[] mPara = { "Type", "Para_1", "Para_2", "Para_3" };
+                string[] mValue = { Type.ToString(), Para_1, Para_2, Para_3 };
+                return mGet.GetDataTable("Sp_Subscriber_Select", mPara, mValue);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
      
         public bool Insert(int? Type, string XMLContent)

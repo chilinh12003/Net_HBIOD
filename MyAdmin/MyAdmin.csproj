@@ -113,6 +113,8 @@
     <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <Content Include="Error.aspx" />
     <Content Include="Images\Buttons\images.jpg" />
+    <Content Include="Javascript\jquery-1.8.3.min.js" />
+    <Content Include="Javascript\jtabber.js" />
     <Content Include="Templates\HTMLPage1.htm" />
     <Content Include="Templates\KPI_MO.htm" />
     <Content Include="Web.config">

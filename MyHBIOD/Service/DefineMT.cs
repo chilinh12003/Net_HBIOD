@@ -16,7 +16,7 @@ namespace MyHBIOD.Service
         public enum MTType
         {
             Default = 100, Invalid = 101, Help = 102, SystemError = 103, Fail = 104,
-            PushMT = 105, Reminder = 106,
+            PushMT = 105, Reminder = 106,ReSendMT=107,
 
             // -----YÊU CẦU TẢI NỘI DUNG
             /// <summary>
@@ -60,7 +60,6 @@ namespace MyHBIOD.Service
             ///  Thông báo sau khi khách hàng không confirm trong 1 khoảng thời gian nhất định
             /// </summary>
             NotifyExpire = 400,
-
         }
      MyExecuteData mExec;
         MyGetData mGet;
