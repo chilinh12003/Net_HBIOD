@@ -12,6 +12,7 @@ namespace MyCCare
         protected void Page_Load(object sender, EventArgs e)
         {
             Login1.Logout();
+            Response.Redirect(Login1.SSOLink_Private + "/SSO/Logout.aspx");
         }
     }
 }

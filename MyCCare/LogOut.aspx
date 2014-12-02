@@ -20,7 +20,7 @@
                         // client's no longer logged in, redirect to logon page
                         // giá trị trả về dạng json
                         //?( {"LogoutResult":true} );
-                        document.location = '<%=MyUtility.MyConfig.Domain %>/cskh/login.aspx';
+                        document.location = '<%=MyUtility.MyConfig.Domain %>/login.aspx';
                     }, 'jsonp');
             });
         </script>

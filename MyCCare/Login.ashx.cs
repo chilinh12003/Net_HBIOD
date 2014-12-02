@@ -22,6 +22,12 @@ namespace MyCCare
         /// <returns></returns>
         public static bool CheckAndRedirectLogin()
         {
+            //if (!CheckToken())
+            //{
+            //    MyCurrent.CurrentPage.Response.Redirect(MyConfig.Domain + "/Login.aspx");
+            //    return false;
+            //}
+
             if (MyCurrent.CurrentPage.Session == null ||
                 MyCurrent.CurrentPage.Session["Username"] == null ||
                 MyCurrent.CurrentPage.Session["Role"] == null)
@@ -29,7 +35,7 @@ namespace MyCCare
                 MyCurrent.CurrentPage.Response.Redirect(MyConfig.Domain + "/Login.aspx");
                 return false;
             }
-                
+
             if (!string.IsNullOrEmpty(MyCurrent.CurrentPage.Session["Username"].ToString()) &&
                 !string.IsNullOrEmpty(MyCurrent.CurrentPage.Session["Role"].ToString()))
                 return true;
@@ -39,11 +45,11 @@ namespace MyCCare
                 return false;
             }
         }
-        
+
         public static bool IsAdmin()
         {
             if (MyCurrent.CurrentPage.Session != null && MyCurrent.CurrentPage.Session["Role"] != null &&
-                MyCurrent.CurrentPage.Session["Role"].ToString().Equals("2",StringComparison.CurrentCultureIgnoreCase))
+                MyCurrent.CurrentPage.Session["Role"].ToString().Equals("2", StringComparison.CurrentCultureIgnoreCase))
                 return true;
             else return false;
         }
@@ -118,36 +124,88 @@ namespace MyCCare
 
         public void ProcessRequest(HttpContext context)
         {
-            context.Response.ContentType = "text/plain";
-            var token = context.Request.QueryString["token"];
-            var ketqua = ValidateToken(token);
-            context.Response.Write(ketqua);
+            string token = string.Empty;
+            int ketqua = -1;
+            try
+            {
+                context.Response.ContentType = "text/plain";
+                 token = context.Request.QueryString["token"];
+
+                 ketqua = ValidateToken(token);
+
+                context.Response.Write(ketqua);
+            }
+            catch(Exception ex)
+            {
+                MyLogfile.WriteLogError(ex);
+            }
+            finally
+            {
+                MyLogfile.WriteLogData("Request-->token:" + token + "|Ketqua:" + ketqua.ToString());
+            }
+            
+        }
+
+        /// <summary>
+        /// Luốn luôn kiểm tra tocken xem còn xác thực hay không
+        /// </summary>
+        /// <returns></returns>
+        public static bool CheckToken()
+        {
+            try
+            {
+                if (HttpContext.Current.Session["Token"] == null ||
+                    string.IsNullOrEmpty(HttpContext.Current.Session["Token"].ToString()))
+                {
+                    HttpContext.Current.Session["Username"] = null;
+
+                    return false;
+                }
+                if (ValidateToken(HttpContext.Current.Session["Token"].ToString()) == 0)
+                {
+                    HttpContext.Current.Session["Username"] = null;
+                    return false;
+                }
+                else
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                MyLogfile.WriteLogError(ex);
+                return false;
+            }
         }
 
         //hàm validatetoken, đăng nhập và gán quyền
-        public int ValidateToken(string token)
+        public static int ValidateToken(string token)
         {
-            int ketqua = 0; // nếu user không tồn tại trong hệ thống thì trả về 0
-            string sURL = SSOLink_Private+"/SSO/SSOService.svc/user/ValidateTokenUrl?token=" + token + "<@-@>10020";
-            var client = new WebClient();
-            string html = client.DownloadString(sURL);
-            MyLogfile.WriteLogData("html:" + html);
-            string role = "";
-            dynamic data = JsonConvert.DeserializeObject(html);
-            var user = data.ValidateTokenUrlResult.Username;
-            var SessionToken = data.ValidateTokenUrlResult.SessionToken;
 
-            MyLogfile.WriteLogData("user:" + user);
-            MyLogfile.WriteLogData("SessionToken:" + SessionToken);
-            // gán session đănng nhập cho user
-            AdminInfo items = new AdminInfo();        
+            HttpContext.Current.Session.Add("Token", token);
+
+            int ketqua = 0; // nếu user không tồn tại trong hệ thống thì trả về 0
             try
             {
+                string sURL = SSOLink_Private + "/SSO/SSOService.svc/user/ValidateTokenUrl?token=" + token + "<@-@>10020";
+                var client = new WebClient();
+                string html = client.DownloadString(sURL);
+                MyLogfile.WriteLogData("html:" + html);
+                string role = "";
+                dynamic data = JsonConvert.DeserializeObject(html);
+                var user = data.ValidateTokenUrlResult.Username;
+                var SessionToken = data.ValidateTokenUrlResult.SessionToken;
+
+                MyLogfile.WriteLogData("user:" + user);
+                MyLogfile.WriteLogData("SessionToken:" + SessionToken);
+                // gán session đănng nhập cho user
+                AdminInfo items = new AdminInfo();
+
                 if (string.IsNullOrEmpty(user.Value) || Guid.Empty.Equals(SessionToken.Value))
+                {
                     HttpContext.Current.Session.Add("Username", null);
+                }
                 else
                 {
-                    
+
                     if (HttpContext.Current.Session["Username"] == null ||
                          HttpContext.Current.Session["Username"].ToString() == string.Empty)
                     {
@@ -173,16 +231,28 @@ namespace MyCCare
             return ketqua;
         }
         //hàm kiểm tra quyền
-        public string CheckRole(string Username)
+        public static string CheckRole(string Username)
         {
-            string sURLRole =SSOLink_Private+ "/Role/ServiceRole.svc/user/CheckRole?username=" + Username;
-            var client = new WebClient();
-            string role = client.DownloadString(sURLRole);
-            MyLogfile.WriteLogData("Role:" + role);
-            dynamic data = JsonConvert.DeserializeObject(role);
-            long res = data.CheckRoleResult.Value;
+            string Result = string.Empty;
+            try
+            {
 
-            return res.ToString();
+
+                string sURLRole = SSOLink_Private + "/Role/ServiceRole.svc/user/CheckRole?username=" + Username;
+                var client = new WebClient();
+                string role = client.DownloadString(sURLRole);
+                MyLogfile.WriteLogData("Role:" + role);
+                dynamic data = JsonConvert.DeserializeObject(role);
+                long res = data.CheckRoleResult.Value;
+
+                Result= res.ToString();
+                return Result;
+            }
+            catch(Exception ex)
+            {
+                MyLogfile.WriteLogError(ex);
+            }
+            return Result;
         }
 
         public bool IsReusable
@@ -200,7 +270,7 @@ namespace MyCCare
             public string Username { get; set; }
 
             public string Role { get; set; }
-           
+
             #endregion
 
             #region Constructor
@@ -208,7 +278,7 @@ namespace MyCCare
             {
                 this.ID = 0;
                 this.Username = "";
-                this.Role = "";  
+                this.Role = "";
             }
             #endregion
         }

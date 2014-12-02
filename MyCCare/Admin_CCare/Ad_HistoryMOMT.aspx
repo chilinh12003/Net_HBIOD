@@ -9,7 +9,7 @@
     <div id="menutabs1" class='mt10'>
         <a class="" href="Ad_SubInfo.aspx">
             <img class='icon1' src='../images/icon1.png'><span>Tra cứu thuê bao</span></a>
-        <a class="selected" href="Ad_HistoryRegDereg.aspx">
+        <a class="selected" href="Ad_HistoryCharge.aspx">
             <img class='icon2' src='../images/icon2.png'><span>Tra cứu sử dụng dịch vụ</span></a>
         <a class="" href="Ad_ResendMT.aspx">
             <img class='icon3' src='../images/icon3.png'><span>Cài đặt dịch vụ</span></a>
